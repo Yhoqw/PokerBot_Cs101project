@@ -6,6 +6,11 @@
 
 using namespace std;
 
+//function prototypes for sake of clarity
+int evaluateHandStrength(const vector<Card> &hand);
+void displayHand(const vector<Card>& hand);
+void displayHand(const vector<Card>& hand);
+string makeAIDecision(int handStrength);
 
 //structure
 struct Card 
@@ -87,25 +92,27 @@ string makeAIDecision(int handStrength)
 
 int main() 
 {
+	//variables to take inputs
 	int input1, input2;
 	char again;
 	
-	//do while to go again
+	//do while loop to go again
 	do
 	{
 		//first input
-		cout << "\n" "Press 1 to deal" << endl;
+		cout << "\n" "Press 1 to Start" << endl;
 		cin >>  input1;
 	
 		if (input1 == 1)
 		{
     
-			// Seed the random number generator
+			// Seed the random number generator based on system time
     		srand(static_cast<unsigned>( time(0) ) );
-
+			
+			//this is a vector to set the players hand and AIs hand
     		vector<Card> playerHand, aiHand;
 
-    		// Deal two cards to each player
+    		//For loop Deal two cards player and AI
     		for (int i = 0; i < 2; ++i) 
 			{
     		    playerHand.push_back(dealCard());
@@ -116,25 +123,27 @@ int main()
     		cout << "Your hand:" << endl;
     		displayHand(playerHand);
 
-    		// Evaluate hand strengths
+    		// Evaluate player and AI hand strengths (using evaluate handstrength fuction)
     		int playerStrength = evaluateHandStrength(playerHand);
     		int aiStrength = evaluateHandStrength(aiHand);
-	
+			
+			//output players hand
 		    cout << "\n" "Your hand strength: " << playerStrength << endl;
 		
-			//second input
+			//second input (call or fold)
 			cout << "\n" "Press" "\n" "1.Call " "\n" "or" "\n" "2.Fold" << endl;
 			cin >> input2;
 		
 			if (input2 == 1)
 			{
-		    	// AI decision
+		    	// AI decision to call or fold (using makeAIDecision function)
 				string aiDecision = makeAIDecision(aiStrength);
-	
+		
+				//outputs AI decision
     			cout << "\n" "The AI is thinking..." << endl;
 				cout << "The AI chooses to: " << aiDecision << endl;
 
-    			// Simple game conclusion
+    			// Simple game conclusion (using displayHand fundtion)
     			cout << "\n" "AI's hand:" << endl;
     			displayHand(aiHand);
     			cout << "AI hand strength: " << aiStrength << endl;
